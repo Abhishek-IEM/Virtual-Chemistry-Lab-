@@ -1,0 +1,99 @@
+.exp-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  cursor: default;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.25s ease;
+}
+.exp-card:hover {
+  border-color: rgba(0, 212, 255, 0.25);
+}
+.exp-card--completed {
+  border-color: rgba(0, 255, 136, 0.2) !important;
+}
+.exp-card--completed:hover {
+  border-color: rgba(0, 255, 136, 0.4) !important;
+}
+
+/* Completed ribbon */
+.completed-ribbon {
+  position: absolute;
+  top: 12px;
+  right: -28px;
+  background: var(--neon-green);
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 36px;
+  transform: rotate(40deg);
+  letter-spacing: 0.5px;
+}
+
+/* Header */
+.exp-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.exp-icon { font-size: 36px; line-height: 1; }
+.exp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* Body */
+.exp-card-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.exp-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.exp-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+}
+.exp-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.exp-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.exp-card-footer { margin-top: auto; }
+.exp-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* Hover glow */
+.exp-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.exp-card:hover .exp-card-glow { opacity: 1; }
+.exp-card--completed:hover .exp-card-glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 255, 136, 0.06), transparent 60%);
+}

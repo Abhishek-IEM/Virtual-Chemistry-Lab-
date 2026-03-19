@@ -1,0 +1,197 @@
+.simulation-canvas {
+  flex: 1;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.sim-label {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sim-workspace {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+}
+
+/* Base Scene */
+.sim-scene {
+  position: relative;
+  width: 300px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.sim-scene--centered {
+  justify-content: center;
+}
+
+/* Glass Vessel Common */
+.glass-vessel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+.glass-vessel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; width: 5%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Flask Container */
+.flask-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+.flask { display: flex; flex-direction: column; align-items: center; }
+.flask-neck {
+  width: 36px; height: 60px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  border-right: 2px solid rgba(255, 255, 255, 0.15);
+  border-top: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px 4px 0 0;
+  z-index: 11;
+  position: relative;
+  margin-bottom: -1px;
+}
+.flask-body {
+  width: 160px; height: 140px;
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  border-top: none;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+.flask-liquid {
+  width: 100%;
+  border-radius: 0 0 50% 50% / 0 0 35% 35%;
+  position: absolute;
+  bottom: 0; left: 0;
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+.flask-liquid::before {
+  content: ''; position: absolute; top: -5px; left: 0; right: 0; height: 10px;
+  background: inherit; filter: brightness(1.2); border-radius: 50%;
+}
+.flask-stand {
+  width: 180px; height: 8px;
+  background: #334155; border-radius: 4px;
+  margin-top: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Burette Container */
+.burette-container {
+  position: absolute;
+  top: -20px;
+  display: flex; flex-direction: column; align-items: center;
+  z-index: 5;
+}
+.burette { display: flex; flex-direction: column; align-items: center; }
+.burette-body { width: 20px; height: 260px; border-radius: 4px; position: relative; }
+.burette-liquid { position: absolute; bottom: 0; left: 0; width: 100%; transition: all 0.5s ease; }
+.burette-tip { width: 4px; height: 20px; background: rgba(255,255,255,0.2); border-radius: 0 0 2px 2px; }
+.burette-clamp {
+  position: absolute; left: -40px; top: 100px; width: 60px; height: 16px;
+  background: #475569; border-radius: 4px; z-index: 4;
+}
+
+/* Animations (Drip, Bubbles, Precipitate) */
+.drip {
+  width: 4px; height: 12px;
+  background: #a8d5ff; border-radius: 4px;
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  z-index: 0;
+}
+.bubble {
+  position: absolute; bottom: 10px; width: 6px; height: 6px;
+  background: rgba(255,255,255,0.6); border-radius: 50%;
+  box-shadow: inset -1px -1px 2px rgba(0,0,0,0.2);
+  z-index: 5;
+}
+.precipitate { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.9); z-index: 2; border-radius: 0 0 50% 50%; overflow: hidden;}
+.precipitate-particle { position: absolute; width: 4px; height: 4px; background: #fff; border-radius: 50%; filter: blur(1px); }
+
+/* Beaker */
+.beaker-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.beaker {
+  width: 140px; height: 160px; border-radius: 4px 4px 8px 8px;
+  border-top: 3px solid rgba(255,255,255,0.3); position: relative;
+  display: flex; align-items: flex-end;
+}
+.beaker-liquid { width: 100%; transition: all 0.5s ease; position: relative; border-radius: 0 0 6px 6px; }
+.beaker-liquid::before { content: ''; position: absolute; top: -4px; left: 0; right: 0; height: 8px; background: inherit; filter: brightness(1.2); border-radius: 50%; }
+.beaker-stand { width: 160px; height: 8px; background: #334155; border-radius: 4px; margin-top: 8px; }
+
+/* Test Tubes for pH */
+.test-tube-rack { display: flex; gap: 24px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid var(--border-glass); }
+.test-tube-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.test-tube { width: 32px; height: 160px; border-radius: 0 0 16px 16px; position: relative; border-top: 2px solid rgba(255,255,255,0.3); display: flex; align-items: flex-end; }
+.test-tube-liquid { width: 100%; border-radius: 0 0 14px 14px; position: relative; }
+.test-tube-label { font-size: 11px; color: var(--text-secondary); text-align: center; width: 60px; }
+
+/* pH Color Chart */
+.ph-color-chart { margin-top: 40px; width: 100%; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; text-align: center; }
+.ph-strip { display: flex; height: 24px; border-radius: 4px; overflow: hidden; }
+
+/* Labels */
+.sim-label-small { position: absolute; font-size: 10px; font-weight: 700; color: #fff; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); z-index: 20; }
+.sim-label--hcl { bottom: 40px; right: -8px; }
+.sim-label--naoh { top: 120px; left: -50px; }
+.endpoint-label { position: absolute; top: -60px; background: rgba(0, 255, 136, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; z-index: 30; white-space: nowrap; }
+.sim-label--reaction { color: var(--neon-cyan); border-color: var(--neon-cyan); background: rgba(0, 212, 255, 0.1); }
+
+/* pH Probe */
+.ph-probe { position: absolute; top: -60px; left: 65px; display: flex; flex-direction: column; align-items: center; z-index: 15; }
+.ph-probe-wire { width: 4px; height: 100px; background: #1e293b; }
+.ph-probe-tip { width: 12px; height: 40px; background: #64748b; border-radius: 6px; border-bottom: 4px solid var(--neon-cyan); }
+.ph-display { position: absolute; top: 0; left: 160px; padding: 12px 20px; text-align: center; border-radius: 12px; }
+.ph-value { font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.ph-label { font-size: 11px; font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+
+/* Funnel Filtration */
+.filtration-setup { display: flex; flex-direction: column; align-items: center; position: relative; top: -30px; }
+.funnel-container { position: relative; z-index: 15; display: flex; flex-direction: column; align-items: center; }
+.funnel-top { width: 100px; height: 80px; clip-path: polygon(0 0, 100% 0, 60% 100%, 40% 100%); display: flex; justify-content: center; position: relative; border-radius: 0; }
+.funnel-stem { width: 12px; height: 60px; background: rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3); margin-top: -1px; }
+.filter-paper { position: absolute; width: 80px; height: 60px; clip-path: polygon(10% 0, 90% 0, 55% 100%, 45% 100%); background: rgba(255,255,255,0.8); top: 5px; z-index: 2; }
+.funnel-liquid { position: absolute; bottom: 0; width: 100%; z-index: 3; }
+.filtered-residue { position: absolute; bottom: 10px; width: 30px; height: 10px; background: #fff; z-index: 4; border-radius: 50%; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); text-align: center; font-size: 8px; color: #333; line-height: 10px; }
+.filtrate-drip { position: absolute; width: 2px; height: 40px; background: #d4eef5; top: 140px; left: 50%; transform: translateX(-50%); z-index: 10; animation: dripFilter 1s infinite linear; transform-origin: top; }
+@keyframes dripFilter { 0% { transform: translateX(-50%) scaleY(0); } 50% { transform: translateX(-50%) scaleY(1); } 100% { transform: translateX(-50%) translateY(40px) scaleY(0); } }
+.small-beaker { width: 100px; height: 100px; border-radius: 2px 2px 8px 8px; border-top: 2px solid rgba(255,255,255,0.3); margin-top: -20px; display: flex; align-items: flex-end; position: relative; z-index: 5; }
+
+/* Chemical Mixing */
+.copper-deposit { position: absolute; bottom: 0; left: 10%; width: 80%; height: 20px; background: #b87333; border-radius: 50%; opacity: 0; filter: blur(2px); z-index: 2; }
+.heater { position: absolute; bottom: -40px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+.heater-coil { width: 120px; height: 12px; background: #333; border-radius: 6px; box-shadow: 0 0 10px rgba(255,60,0,0.8), inset 0 0 5px rgba(255,200,0,0.8); background-image: linear-gradient(90deg, #ff3c00 0%, #ff8800 50%, #ff3c00 100%); }
+.heat-wave { position: absolute; bottom: 12px; width: 100px; height: 2px; background: rgba(255,60,0,0.4); border-radius: 50%; filter: blur(2px); }
